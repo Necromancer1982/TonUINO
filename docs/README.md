@@ -1,6 +1,6 @@
 [For english, please click here!](README_EN.md)
 
-Alternative TonUINO Firmware
+Alternative TonUINO Firmware + einstellbare Minimallautstärke
 ============================
 
 Dies ist meine alternative Firmware für das wundervolle [TonUINO](https://www.voss.earth/tonuino/) Projekt. Ziel ist hier nicht unbedingt 100%ige Funktionsgleichheit mit der original Firmware. Es wurden vielmehr für meinen Zweck interessante Funktionen hinzugefügt und desweiteren auch einige Punkte (erstmal?) ausgelassen. Im großen und ganzen macht es einfach Spaß, sich mit der TonUINO Plattform auszutoben, ich bin deswegen auch viel in der [TonUINO Community](https://discourse.voss.earth/) aktiv. Schaut doch einfach mal vorbei - ihr findet dort viele Bauvorschläge, Hacks und Informationen rund um den TonUINO.
@@ -19,11 +19,11 @@ Dies ist meine alternative Firmware für das wundervolle [TonUINO](https://www.v
 - Einstellungen werden im EEPROM gespeichert.
 - Konfigurationsdialoge (NFC Tags/Karten anlernen/löschen, Elternmenü etc.) können abgebrochen werden.
 - NFC Tags/Karten können wieder komplett gelöscht werden.
-- Elternmenü um NFC Tags/Karten zu löschen und um Einstellungen wie Startlautstärke, Maximallautstärke, Menülautstärke, Equalizer und Abschalttimer (benötigt eine externe Schaltung oder eine passende Powerbank) vorzunehmen. Dort kann TonUINO auch von Hand abgeschaltet werden und es lassen sich der Hörbuchfortschritt und die Einstellugen zurücksetzen.
-- Optional: PIN Code um Elternfunktionen zu schützen.
+- Elternmenü um NFC Tags/Karten zu löschen und um Einstellungen wie Startlautstärke, Maximallautstärke, Menülautstärke, **Minimallautstärke**, Equalizer und Abschalttimer (benötigt eine externe Schaltung oder eine passende Powerbank) vorzunehmen. Dort kann TonUINO auch von Hand abgeschaltet werden und es lassen sich der Hörbuchfortschritt und die Einstellugen zurücksetzen.
+**- AKTIVIERT:** PIN Code um Elternfunktionen zu schützen.
 - Optional: Umstellbar auf 5 Tasten Bedienung.
-- Optional: Fernbedienbar über eine Infrarotfernbedienung (diese muss mindestens 7 Tasten haben), welche über das Elternmenü angelernt werden kann. Über die Fernbedienung ist es dann auch möglich die Tasten von TonUINO zu sperren.
-- Optional: Unterstützung einer Status LED.
+**- AKTIVIERT:** Fernbedienbar über eine Infrarotfernbedienung (diese muss mindestens 7 Tasten haben), welche über das Elternmenü angelernt werden kann. Über die Fernbedienung ist es dann auch möglich die Tasten von TonUINO zu sperren.
+**- AKTIVIERT:** Unterstützung einer Status LED.
 - Optional: Unterspannungsabschaltung für z.B. die [CubieKid Platine](https://www.thingiverse.com/thing:3148200).
 
 ## Tastenbelegung
