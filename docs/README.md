@@ -20,10 +20,10 @@ Dies ist meine alternative Firmware für das wundervolle [TonUINO](https://www.v
 - Konfigurationsdialoge (NFC Tags/Karten anlernen/löschen, Elternmenü etc.) können abgebrochen werden.
 - NFC Tags/Karten können wieder komplett gelöscht werden.
 - Elternmenü um NFC Tags/Karten zu löschen und um Einstellungen wie Startlautstärke, Maximallautstärke, Menülautstärke, **Minimallautstärke**, Equalizer und Abschalttimer (benötigt eine externe Schaltung oder eine passende Powerbank) vorzunehmen. Dort kann TonUINO auch von Hand abgeschaltet werden und es lassen sich der Hörbuchfortschritt und die Einstellugen zurücksetzen.
-**- AKTIVIERT:** PIN Code um Elternfunktionen zu schützen.
+- **AKTIVIERT:** PIN Code um Elternfunktionen zu schützen.
 - Optional: Umstellbar auf 5 Tasten Bedienung.
-**- AKTIVIERT:** Fernbedienbar über eine Infrarotfernbedienung (diese muss mindestens 7 Tasten haben), welche über das Elternmenü angelernt werden kann. Über die Fernbedienung ist es dann auch möglich die Tasten von TonUINO zu sperren.
-**- AKTIVIERT:** Unterstützung einer Status LED.
+- **AKTIVIERT:** Fernbedienbar über eine Infrarotfernbedienung (diese muss mindestens 7 Tasten haben), welche über das Elternmenü angelernt werden kann. Über die Fernbedienung ist es dann auch möglich die Tasten von TonUINO zu sperren.
+- **AKTIVIERT:** Unterstützung einer Status LED.
 - Optional: Unterspannungsabschaltung für z.B. die [CubieKid Platine](https://www.thingiverse.com/thing:3148200).
 
 ## Tastenbelegung
