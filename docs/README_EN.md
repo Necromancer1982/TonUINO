@@ -1,4 +1,4 @@
-Alternative TonUINO Firmware
+Alternative TonUINO Firmware + Minimum Volume
 ============================
 
 This is my alternative firmware for the wonderful [TonUINO](https://www.voss.earth/tonuino/) project. The goal of this firmware is not to implement 100% the same features as the original firmware. I more or less just added what fits my use case and i also removed (for now?) some stuff i currently don't really need. Overall it's just fun to play around with TonUINO, which is also the reason why i am very active in the [TonUINO Community](https://discourse.voss.earth/). Make sure you drop by, there is lots of stuff to discover.
@@ -17,11 +17,11 @@ This is my alternative firmware for the wonderful [TonUINO](https://www.voss.ear
 - Preferences are stored in EEPROM.
 - Setup dialogues (setup/erase NFC tags/cards, parents menu etc.) can be aborted.
 - NFC tags/cards can be erased.
-- Parents menu to erase NFC tags/cards and to change preferences like startup volume, maximum volume, menu volume, equalizer and shutdown timer (requires an external circuit or compatible power bank). You can also manually trigger the shutdown there and reset the story book progress and preferences.
-- Optional: PIN to protect parental functions.
+- Parents menu to erase NFC tags/cards and to change preferences like startup volume, maximum volume, menu volume, **minimum volume**, equalizer and shutdown timer (requires an external circuit or compatible power bank). You can also manually trigger the shutdown there and reset the story book progress and preferences.
+- **ACTIVATED:** PIN to protect parental functions.
 - Optional: 5 Buttons.
-- Optional: IR remote control (incl. box lock). The remote (which needs at least 7 keys) can be learned in using the parents menu.
-- Optional: Status LED.
+- **ACTIVATED:** IR remote control (incl. box lock). The remote (which needs at least 7 keys) can be learned in using the parents menu.
+- **ACTIVATED:** Status LED.
 - Optional: Low voltage shutdown i.e. for the [CubieKid PCB](https://www.thingiverse.com/thing:3148200).
 
 ## Button Cheat Sheet
