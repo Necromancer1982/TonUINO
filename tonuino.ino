@@ -171,13 +171,13 @@
 // #define FIVEBUTTONS
 
 // uncomment the below line to enable ir remote support
-// #define IRREMOTE
+#define IRREMOTE
 
 // uncomment the below line to enable pin code support
-// #define PINCODE
+#define PINCODE
 
 // uncomment the below line to enable status led support
-// #define STATUSLED
+#define STATUSLED
 
 // uncomment the below line to enable low voltage shutdown support
 // #define LOWVOLTAGE
@@ -247,8 +247,8 @@ const uint16_t buttonShortLongPressDelay = 2000;    // time after which a button
 const uint16_t buttonLongLongPressDelay = 5000;     // longer long press delay for special cases, i.e. to trigger erase nfc tag mode (in milliseconds)
 const uint32_t debugConsoleSpeed = 9600;            // speed for the debug console
 
-// number of mp3 files in advert folder + number of mp3 files in mp3 folder
-const uint16_t msgCount = 571;
+// number of mp3 files in advert folder + number of mp3 files in mp3 folder  *** original: 571 ***
+const uint16_t msgCount = 572;
 
 // define magic cookie (by default 0x13 0x37 0xb3 0x47)
 const uint8_t magicCookieHex[4] = {0x13, 0x37, 0xb3, 0x47};
@@ -265,6 +265,7 @@ const uint64_t enterPinCodeTimeout = 10000;         // time to enter the pin cod
 const uint8_t preferenceVersion = 1;
 const uint8_t mp3StartVolumeDefault = 15;
 const uint8_t mp3MaxVolumeDefault = 25;
+const uint8_t mp3MinVolumeDefault = 3;
 const uint8_t mp3MenuVolumeDefault = 15;
 const uint8_t mp3EqualizerDefault = 1;
 const uint8_t shutdownMinutesDefault = 10;
@@ -329,6 +330,7 @@ struct preferenceObject {
   uint8_t version;
   uint8_t mp3StartVolume;
   uint8_t mp3MaxVolume;
+  uint8_t mp3MinVolume;
   uint8_t mp3MenuVolume;
   uint8_t mp3Equalizer;
   uint8_t shutdownMinutes;
@@ -493,6 +495,8 @@ void setup() {
   mp3.setVolume(playback.mp3CurrentVolume = preference.mp3StartVolume);
   Serial.print(F("     max "));
   Serial.println(preference.mp3MaxVolume);
+  Serial.print(F("     min "));
+  Serial.println(preference.mp3MinVolume);
   Serial.print(F("    menu "));
   Serial.println(preference.mp3MenuVolume);
   Serial.print(F("      eq "));
@@ -815,7 +819,7 @@ void loop() {
   }
   // button 2 (left) press or ir remote down while playing: decrease volume
   else if (((inputEvent == B2P && !playback.isLocked) || inputEvent == IRD) && playback.isPlaying) {
-    if (playback.mp3CurrentVolume > 0) {
+    if (playback.mp3CurrentVolume > preference.mp3MinVolume) {
       mp3.setVolume(--playback.mp3CurrentVolume);
       Serial.print(F("volume "));
       Serial.println(playback.mp3CurrentVolume);
@@ -1447,6 +1451,7 @@ void preferences(uint8_t preferenceAction) {
       preference.version = preferenceVersion;
       preference.mp3StartVolume = mp3StartVolumeDefault;
       preference.mp3MaxVolume = mp3MaxVolumeDefault;
+      preference.mp3MinVolume = mp3MinVolumeDefault;
       preference.mp3MenuVolume = mp3MenuVolumeDefault;
       preference.mp3Equalizer = mp3EqualizerDefault;
       preference.shutdownMinutes = shutdownMinutesDefault;
@@ -1560,28 +1565,29 @@ void parentsMenu() {
 #ifdef PINCODE
   if (!enterPinCode()) return;
 #endif
-
   playback.playListMode = false;
-
   // set volume to menu volume
   mp3.setVolume(preference.mp3MenuVolume);
-
   switchButtonConfiguration(CONFIG);
   shutdownTimer(STOP);
 
   while (true) {
     Serial.println(F("parents"));
-    uint8_t selectedOption = prompt(10, 900, 909, 0, 0, false, false);
-    // cancel
+    uint8_t selectedOption = prompt(11, 900, 909, 0, 0, false, false);  // promt(<Anzahl Einträge>, <Überschrift>, <Offset erster Menüpunkt - 1>, <Value-Startpunkt>, <Ordner>, <Value-Preview>, <Lautstärke entsprechend Value ändern>)
+// ********************************************
+// *** selectedOption 0: cancel ***************
+//*********************************************
     if (selectedOption == 0) {
       mp3.playMp3FolderTrack(904);
       waitPlaybackToFinish(500);
       break;
     }
-    // erase tag
+// ********************************************
+// *** selectedOption 1: erase tag ************
+//*********************************************
     else if (selectedOption == 1) {
       Serial.println(F("erase tag"));
-      mp3.playMp3FolderTrack(920);
+      mp3.playMp3FolderTrack(970);
       // loop until tag is erased
       uint8_t writeNfcTagStatus = 0;
       while (!writeNfcTagStatus) {
@@ -1589,7 +1595,7 @@ void parentsMenu() {
         // button 0 (middle) hold for 2 sec or ir remote menu: cancel erase nfc tag
         if (inputEvent == B0H || inputEvent == IRM) {
           Serial.println(F("cancel"));
-          mp3.playMp3FolderTrack(923);
+          mp3.playMp3FolderTrack(973);
           waitPlaybackToFinish(500);
           break;
         }
@@ -1599,10 +1605,10 @@ void parentsMenu() {
           for (uint8_t i = 0; i < 16; i++) bytesToWrite[i] = 0x00;
           writeNfcTagStatus = writeNfcTagData(bytesToWrite, sizeof(bytesToWrite));
           if (writeNfcTagStatus == 1) {
-            mp3.playMp3FolderTrack(921);
+            mp3.playMp3FolderTrack(971);
             waitPlaybackToFinish(500);
           }
-          else mp3.playMp3FolderTrack(922);
+          else mp3.playMp3FolderTrack(972);
         }
 #ifdef STATUSLED
         statusLedBlink(500);
@@ -1610,7 +1616,9 @@ void parentsMenu() {
         mp3.loop();
       }
     }
-    // startup volume
+// ********************************************
+// *** selectedOption 2: startup volume *******
+//*********************************************
     else if (selectedOption == 2) {
       Serial.println(F("start vol"));
       uint8_t promptResult = prompt(preference.mp3MaxVolume, 930, 0, preference.mp3StartVolume, 0, false, true);
@@ -1623,7 +1631,9 @@ void parentsMenu() {
         waitPlaybackToFinish(500);
       }
     }
-    // maximum volume
+// ********************************************
+// *** selectedOption 3: maximum volume *******
+//*********************************************
     else if (selectedOption == 3) {
       Serial.println(F("max vol"));
       uint8_t promptResult = prompt(30, 931, 0, preference.mp3MaxVolume, 0, false, true);
@@ -1638,8 +1648,34 @@ void parentsMenu() {
         waitPlaybackToFinish(500);
       }
     }
-    // parents volume
+
+
+
+
+// ********************************************
+// *** selectedOption 4: minimum volume *******
+//*********************************************
     else if (selectedOption == 4) {
+      Serial.println(F("min vol"));
+      uint8_t promptResult = prompt(30, 933, 0, preference.mp3MinVolume, 0, false, true);
+      if (promptResult != 0) {
+        preference.mp3MinVolume = promptResult;
+        // startup volume can't be higher than maximum volume
+        preference.mp3StartVolume = min(preference.mp3StartVolume, preference.mp3MaxVolume);
+        preferences(WRITE);
+        // set volume to menu volume
+        mp3.setVolume(preference.mp3MenuVolume);
+        mp3.playMp3FolderTrack(901);
+        waitPlaybackToFinish(500);
+      }
+    }
+
+
+    
+// ********************************************
+// *** selectedOption 5: menue volume *********
+//*********************************************
+    else if (selectedOption == 5) {
       Serial.println(F("menu vol"));
       uint8_t promptResult = prompt(30, 932, 0, preference.mp3MenuVolume, 0, false, true);
       if (promptResult != 0) {
@@ -1651,8 +1687,10 @@ void parentsMenu() {
         waitPlaybackToFinish(500);
       }
     }
-    // equalizer
-    else if (selectedOption == 5) {
+// ********************************************
+// *** selectedOption 6: equilizer ************
+//*********************************************
+    else if (selectedOption == 6) {
       Serial.println(F("eq"));
       uint8_t promptResult = prompt(6, 940, 940, preference.mp3Equalizer, 0, false, false);
       if (promptResult != 0) {
@@ -1663,8 +1701,10 @@ void parentsMenu() {
         waitPlaybackToFinish(500);
       }
     }
-    // learn ir remote
-    else if (selectedOption == 6) {
+// ********************************************
+// *** selectedOption 7: learn remote *********
+//*********************************************
+    else if (selectedOption == 7) {
 #ifdef IRREMOTE
       Serial.println(F("learn remote"));
       for (uint8_t i = 0; i < 7; i++) {
@@ -1701,8 +1741,10 @@ void parentsMenu() {
       waitPlaybackToFinish(500);
 #endif
     }
-    // shutdown timer
-    else if (selectedOption == 7) {
+// ********************************************
+// *** selectedOption 8: shutdown timer *******
+//*********************************************
+    else if (selectedOption == 8) {
       Serial.println(F("timer"));
       uint8_t promptResult = prompt(7, 960, 960, 0, 0, false, false);
       if (promptResult != 0) {
@@ -1720,22 +1762,28 @@ void parentsMenu() {
         waitPlaybackToFinish(500);
       }
     }
-    // reset progress
-    else if (selectedOption == 8) {
+// ********************************************
+// *** selectedOption 9: reset progress *******
+//*********************************************
+    else if (selectedOption == 9) {
       preferences(RESET_PROGRESS);
       mp3.playMp3FolderTrack(902);
       waitPlaybackToFinish(50);
     }
-    // reset preferences
-    else if (selectedOption == 9) {
+// ********************************************
+// *** selectedOption 10: reset preferences ****
+//*********************************************
+    else if (selectedOption == 10) {
       preferences(RESET);
       mp3.setVolume(preference.mp3MenuVolume);
       mp3.setEq((DfMp3_Eq)(preference.mp3Equalizer - 1));
       mp3.playMp3FolderTrack(903);
       waitPlaybackToFinish(500);
     }
-    // manual box shutdown
-    else if (selectedOption == 10) {
+// ********************************************
+// *** selectedOption 11: manual shutdown *****
+//*********************************************
+    else if (selectedOption == 11) {
       Serial.println(F("manual shut"));
       shutdownTimer(SHUTDOWN);
     }
