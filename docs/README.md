@@ -52,10 +52,9 @@ TonUINO funktioniert nur korrekt, wenn ein **zur Firmware passendes** Set an Aud
 
 ### Audio Meldungen herunterladen
 
-Die Audio Meldungen sind mit Amazon Polly generiert worden und können in verschiedenen Sprachen heruntergeladen werden:
-
-- Deutsch: [audio-messages-polly-de.zip](https://seisfeld.github.io/tonuino/audio-messages-polly-de.zip)
-- Englisch: [audio-messages-polly-en.zip](https://seisfeld.github.io/tonuino/audio-messages-polly-en.zip)
+Die Audio Meldungen sind mit [Notevibes](https://notevibes.com/) generiert worden.
+Ich habe mich für die Stimme "Deutsch - Anika", Voice Speed 1,3, Pitch 0 entschieden.
+Alle benötigten Soundfiles sind im Ordner "SD-Karte" im File "SD-Karte.zip" enthalten.
 
 Die `.zip` Datei entpacken und die Ordner **advert** und **mp3** auf die SD Karte kopieren. Fertig.
 
