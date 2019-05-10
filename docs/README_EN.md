@@ -50,12 +50,17 @@ TonUINO only functions correctly, when there is the correct (**as in matches the
 
 ### Download the audio messages
 
-The audio messages have been generated with Amazon Polly and can be downloaded in several different languages:
+Die Audio Meldungen sind mit [Notevibes](https://notevibes.com/) generiert worden.
+Ich habe mich für die Stimme "Deutsch - Anika", Voice Speed 1,3, Pitch 0 entschieden.
+Alle benötigten Soundfiles sind im Ordner "SD-Karte" im File "SD-Karte.zip" enthalten.
 
-- German: [audio-messages-polly-de.zip](https://seisfeld.github.io/tonuino/audio-messages-polly-de.zip)
-- English: [audio-messages-polly-en.zip](https://seisfeld.github.io/tonuino/audio-messages-polly-en.zip)
+Die `.zip` Datei entpacken und die Ordner **advert** und **mp3** auf die SD Karte kopieren. Fertig.
 
-Extract the `.zip` file and copy the folders **advert** and **mp3** to the SD Card. Done.
+The audio messages have been generated with [Notevibes](https://notevibes.com/).
+I've decided to use the Voice "Deutsch - Anika", Voice Speed 1.3, Pitch 0.
+You can find all needed soundfiles in the "SD-Karte"-Folder. 
+
+Extract the `SD-Karte.zip` file and copy the folders **advert** and **mp3** to the SD Card. Done.
 
 ### Create the audio messages yourself
 
